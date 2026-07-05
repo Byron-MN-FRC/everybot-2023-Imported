@@ -15,9 +15,9 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class Robot extends TimedRobot {
   /*
@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
    * mode (switch set to X on the bottom) or a different controller
    * that you feel is more comfortable.
    */
-  XboxController m_controller = new XboxController(0);
+  CommandXboxController m_controller = new CommandXboxController(0);
 
   /*
    * Magic numbers. Use these to adjust settings.
@@ -304,10 +304,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double armPower;
-    if (m_controller.getRawButton(7)) {
+    // TODO: You may want to change this to match  your preferences
+    if (m_controller.leftTrigger().getAsBoolean()) {
       // lower the arm
       armPower = -ARM_OUTPUT_POWER;
-    } else if (m_controller.getRawButton(5)) {
+    } else if (m_controller.leftBumper().getAsBoolean()) {
       // raise the arm
       armPower = ARM_OUTPUT_POWER;
     } else {
@@ -318,12 +319,12 @@ public class Robot extends TimedRobot {
   
     double intakePower;
     int intakeAmps;
-    if (m_controller.getRawButton(8)) {
+    if (m_controller.rightTrigger().getAsBoolean()) {
       // cube in or cone out
       intakePower = INTAKE_OUTPUT_POWER;
       intakeAmps = INTAKE_CURRENT_LIMIT_A;
       lastGamePiece = CUBE;
-    } else if (m_controller.getRawButton(6)) {
+    } else if (m_controller.rightBumper().getAsBoolean()) {
       // cone in or cube out
       intakePower = -INTAKE_OUTPUT_POWER;
       intakeAmps = INTAKE_CURRENT_LIMIT_A;
