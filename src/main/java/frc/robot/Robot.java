@@ -27,10 +27,10 @@ public class Robot extends TimedRobot {
    * Change kBrushed to kBrushless if you are using NEO's.
    * Use the appropriate other class if you are using different controllers.
    */
-  WPI_VictorSPX frontLeftVictor = new WPI_VictorSPX(1);
-  WPI_VictorSPX frontRightVictor = new WPI_VictorSPX(2);
-  WPI_VictorSPX backLeftVictor = new WPI_VictorSPX(3);
-  WPI_VictorSPX backRightVictor = new WPI_VictorSPX(4);
+  WPI_VictorSPX frontLeftVictor = new WPI_VictorSPX(1); // 1
+  WPI_VictorSPX frontRightVictor = new WPI_VictorSPX(3); // inv
+  WPI_VictorSPX backLeftVictor = new WPI_VictorSPX(2); // 3
+  WPI_VictorSPX backRightVictor = new WPI_VictorSPX(4); // inv
 
   /*
    * Mechanism motor controller instances.
@@ -42,11 +42,12 @@ public class Robot extends TimedRobot {
    * The arm is a NEO on Everybud.
    * The intake is a NEO 550 on Everybud.
    */
-  SparkMax arm = new SparkMax(5, MotorType.kBrushless);
-  SparkMax intake = new SparkMax(6, MotorType.kBrushed);
+  SparkMax arm = new SparkMax(6, MotorType.kBrushless);
+  SparkMax intake = new SparkMax(5, MotorType.kBrushless);
 
   SparkMaxConfig armConfig = new SparkMaxConfig();
   SparkMaxConfig intakeConfig = new SparkMaxConfig();
+  double currCurr = 0;
 
   /**
    * The starter code uses the most generic joystick class.
@@ -101,9 +102,9 @@ public class Robot extends TimedRobot {
      * if it is going the wrong way. Repeat for the other 3 motors.
      */
     frontLeftVictor.setInverted(false);
-    frontRightVictor.setInverted(false);
+    frontRightVictor.setInverted(true);
     backLeftVictor.setInverted(false);
-    backRightVictor.setInverted(false);
+    backRightVictor.setInverted(true);
 
     /*
      * Set the arm and intake to brake mode to help hold position.
@@ -116,6 +117,8 @@ public class Robot extends TimedRobot {
 
     intakeConfig.inverted(false);
     intakeConfig.idleMode(IdleMode.kBrake);
+    intakeConfig.smartCurrentLimit(0);
+    currCurr = 0;
 
     arm.configure(armConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     intake.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -170,8 +173,10 @@ public class Robot extends TimedRobot {
   public void setIntakeMotor(double percent, int amps) {
     intake.set(percent);
 
-    intakeConfig.smartCurrentLimit(amps);
-    intake.configure(intakeConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    if (amps != currCurr) {
+      intakeConfig.smartCurrentLimit(amps);
+      intake.configure(intakeConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    }
 
     SmartDashboard.putNumber("intake power (%)", percent);
     SmartDashboard.putNumber("intake motor current (amps)", intake.getOutputCurrent());
