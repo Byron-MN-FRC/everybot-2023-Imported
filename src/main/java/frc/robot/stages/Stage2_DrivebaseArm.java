@@ -45,9 +45,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class Stage2_DrivebaseArm extends TimedRobot {
 
-  // ==========================================================
   // DRIVE MOTOR FIELDS (same as Stage 1)
-  // ==========================================================
   WPI_VictorSPX frontLeftVictor  = new WPI_VictorSPX(1);
   WPI_VictorSPX frontRightVictor = new WPI_VictorSPX(3);
   WPI_VictorSPX backLeftVictor   = new WPI_VictorSPX(2);
@@ -140,9 +138,7 @@ public class Stage2_DrivebaseArm extends TimedRobot {
   }
 
 
-  // ==========================================================
   // METHOD: setDriveMotors(forward, turn) — same as Stage 1
-  // ==========================================================
   public void setDriveMotors(double forward, double turn) {
     SmartDashboard.putNumber("drive forward power (%)", forward);
     SmartDashboard.putNumber("drive turn power (%)", turn);
@@ -184,9 +180,7 @@ public class Stage2_DrivebaseArm extends TimedRobot {
   }
 
 
-  // ==========================================================
   // METHOD: robotPeriodic() — same as Stage 1
-  // ==========================================================
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time (seconds)", Timer.getFPGATimestamp());

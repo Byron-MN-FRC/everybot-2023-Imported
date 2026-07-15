@@ -44,17 +44,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class Stage3_DrivebaseArmIntake extends TimedRobot {
 
-  // ==========================================================
   // DRIVE MOTOR FIELDS (same as Stages 1 & 2)
-  // ==========================================================
   WPI_VictorSPX frontLeftVictor  = new WPI_VictorSPX(1);
   WPI_VictorSPX frontRightVictor = new WPI_VictorSPX(3);
   WPI_VictorSPX backLeftVictor   = new WPI_VictorSPX(2);
   WPI_VictorSPX backRightVictor  = new WPI_VictorSPX(4);
 
-  // ==========================================================
   // ARM MOTOR FIELDS (same as Stage 2)
-  // ==========================================================
   SparkMax arm = new SparkMax(6, MotorType.kBrushless);
   SparkMaxConfig armConfig = new SparkMaxConfig();
 
@@ -157,9 +153,7 @@ public class Stage3_DrivebaseArmIntake extends TimedRobot {
   }
 
 
-  // ==========================================================
   // METHOD: setDriveMotors(forward, turn) — same as Stage 1
-  // ==========================================================
   public void setDriveMotors(double forward, double turn) {
     SmartDashboard.putNumber("drive forward power (%)", forward);
     SmartDashboard.putNumber("drive turn power (%)", turn);
@@ -177,9 +171,7 @@ public class Stage3_DrivebaseArmIntake extends TimedRobot {
   }
 
 
-  // ==========================================================
   // METHOD: setArmMotor(percent) — same as Stage 2
-  // ==========================================================
   public void setArmMotor(double percent) {
     arm.set(percent);
     SmartDashboard.putNumber("arm power (%)", percent);
@@ -221,9 +213,7 @@ public class Stage3_DrivebaseArmIntake extends TimedRobot {
   }
 
 
-  // ==========================================================
   // METHOD: robotPeriodic() — same as Stage 1
-  // ==========================================================
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Time (seconds)", Timer.getFPGATimestamp());
