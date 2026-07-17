@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
   /**
    * Percent output for holding
    */
-  static final double INTAKE_HOLD_POWER = 0.07;
+  static final double INTAKE_HOLD_POWER = 0.0;
 
   /**
    * This method is run once when the robot is first started up.
@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
      * If either one is reversed, change that here too. Arm out is defined
      * as positive, arm in is negative.
      */
-    armConfig.inverted(true);
+    armConfig.inverted(false);
     armConfig.idleMode(IdleMode.kBrake);
     armConfig.smartCurrentLimit(ARM_CURRENT_LIMIT_A);
 
@@ -212,12 +212,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double armPower;
-    if (m_controller.leftTrigger().getAsBoolean()) {
+    if (m_controller.leftTrigger(0.1).getAsBoolean()) {
       // lower the arm
-      armPower = -ARM_OUTPUT_POWER;
-    } else if (m_controller.leftBumper().getAsBoolean()) {
+      armPower = m_controller.getLeftTriggerAxis() * -ARM_OUTPUT_POWER;
+    } else if (m_controller.rightTrigger(0.1).getAsBoolean()) {
       // raise the arm
-      armPower = ARM_OUTPUT_POWER;
+      armPower = m_controller.getRightTriggerAxis() * ARM_OUTPUT_POWER;
     } else {
       // do nothing and let it sit where it is
       armPower = 0.0;
