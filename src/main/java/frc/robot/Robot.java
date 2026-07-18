@@ -226,12 +226,12 @@ public class Robot extends TimedRobot {
   
     double intakePower;
     int intakeAmps;
-    if (m_controller.rightTrigger().getAsBoolean()) {
+    if (m_controller.b().getAsBoolean()) {
       // cube in or cone out
       intakePower = INTAKE_OUTPUT_POWER;
       intakeAmps = INTAKE_CURRENT_LIMIT_A;
       lastGamePiece = CUBE;
-    } else if (m_controller.rightBumper().getAsBoolean()) {
+    } else if (m_controller.a().getAsBoolean()) {
       // cone in or cube out
       intakePower = -INTAKE_OUTPUT_POWER;
       intakeAmps = INTAKE_CURRENT_LIMIT_A;
