@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
      * If either one is reversed, change that here too. Arm out is defined
      * as positive, arm in is negative.
      */
-    armConfig.inverted(true);
+    armConfig.inverted(false);
     armConfig.idleMode(IdleMode.kBrake);
     armConfig.smartCurrentLimit(ARM_CURRENT_LIMIT_A);
 
